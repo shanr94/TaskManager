@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager - using Local Storage</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <h1>TASK MANAGER</h1>
+        <h2>&#40;using Local Storage&#41;</h2>
+    </header>
+    <section>
+        <form>
+            <label for="subject">Subject:</label>
+            <input type="text" placeholder="Enter subject...." name="subject" required>
+
+            <label for="priority">Priority</label>
+            <select name="priority" id="priority" required>
+                <option value="">None</option>
+                <option value="high">High</option>
+                <option value="medium">Medium</option>
+                <option value="low">Low</option>
+            </select>
+
+            <label for="dueDate">Due Date:</label>
+            <input type="datetime-local" name="dueDate" required>
+
+            <label for="details">Task Details:</label>
+            <textarea name="details" id="details" placeholder="Enter details..." name="details" rows="3"></textarea>
+
+            <input type="submit" value="Submit">
+        </form>
+
+        <!-- dynamically showing task -->
+        <section id="pendingTasks">
+        </section>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
