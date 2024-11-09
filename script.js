@@ -16,7 +16,7 @@ form.addEventListener("submit", (e) => {
   } else if (priority == "medium") {
     txtColor = 'style="color: yellow"';
   } else if (priority == "low") {
-    txtColor = "";
+    txtColor = `style="color: #b9ff14"`;
   }
 
   //getting data from local storage as JSON and converting it in Array
@@ -62,12 +62,12 @@ function displayHandler() {
             <div class="task">
                 <span class="deleteIcon" onclick=deleteHandler(${i})> &times;</span>
                 <h3>Subject: <span>${elm.subject}</span></h3>
-                <h3>Priority: <span ${
+                <h3 ${
                   elm.txtColor
-                }>${elm.priority.toUpperCase()}</span></h3>
+                }>Priority: <span >${elm.priority.toUpperCase()}</span></h3>
                 <h3>Due Date: <span>${elm.dueDate}</span></h3>
-                <h3>Task Details: </h3>
-                <div class="taskDetails">${elm.details}</div>
+                <h3>Task Details:
+                <span class="taskDetails">${elm.details}</span> </h3>
             </div>
             `
     );
