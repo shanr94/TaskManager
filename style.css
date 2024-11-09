@@ -107,8 +107,9 @@ form input[type="submit"]:active {
   border-radius: 10px;
   padding: 5px;
   background-color: #afbbb1c7;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
   overflow-y: scroll;
-  overscroll-behavior-y: contain;
 }
 .taskDetails::-webkit-scrollbar {
   width: 8px;
