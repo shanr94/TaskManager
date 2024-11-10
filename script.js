@@ -1,4 +1,31 @@
+let digiClock = document.getElementById("digiClock");
 let form = document.querySelector("form");
+let dateElm = document.getElementById("cDate");
+let timeElm = document.getElementById("cTime");
+let dayElm = document.getElementById("cDay");
+const dayArry = [
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+  "Sunday",
+];
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
 let isDueDateValid = false;
 
 //adding event listner on form submit
@@ -112,5 +139,47 @@ function deleteHandler(index) {
 
   displayHandler();
 }
+setInterval(() => {
+  let currentDate = new Date();
 
+  let dt =
+    currentDate.getDate() +
+    "-" +
+    months[currentDate.getMonth()] +
+    "-" +
+    currentDate.getFullYear();
+
+  let hr = currentDate.getHours();
+  if (hr > 12) {
+    amPm = "PM";
+    finalHR = hr - 12;
+  } else {
+    amPm = "AM";
+    finalHR = hr;
+  }
+  let t =
+    finalHR +
+    ":" +
+    currentDate.getMinutes() +
+    ":" +
+    currentDate.getSeconds() +
+    "  " +
+    amPm;
+
+  dateElm.innerHTML = dt;
+  dayElm.innerHTML = dayArry[currentDate.getDay()];
+  timeElm.innerHTML = t;
+}, 1000);
+window.addEventListener("resize", () => {
+  let width = window.innerWidth;
+  if (width > 1200) {
+    digiClock.style.position = "absolute";
+    digiClock.style.top = "10vh";
+    digiClock.style.right = "3vw";
+  } else {
+    digiClock.style.position = "relative";
+    digiClock.style.top = "unset";
+    digiClock.style.right = "unset";
+  }
+});
 displayHandler();

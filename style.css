@@ -21,12 +21,48 @@ h1 {
   color: #bc4749;
 }
 h2 {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   font-style: italic;
   font-weight: 600;
   text-decoration: underline;
   color: #386641;
 }
+
+#digiClock {
+  width: max-content;
+  margin: auto;
+  padding: 1.5rem;
+  border-radius: 15px;
+  background-color: black;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  top: unset;
+  right: unset;
+  margin-bottom: 1rem;
+}
+#digiClock h1 {
+  font-size: 1.2em;
+  color: white;
+  margin-bottom: 0.5rem;
+}
+#digiClock h1 span {
+  color: rgba(255, 0, 0, 0.812);
+}
+#digiClock h3 {
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+:is(#currDate, #currTime, #currDay) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
 form {
   width: 75%;
   max-width: 25em;
@@ -57,7 +93,7 @@ form input[type="submit"] {
   margin: auto;
   margin-top: 15px;
   padding: 8px 0;
-  font-size: 16px;
+  font-size: 0.85rem;
   background-color: #bc4749;
   color: #f2e8cf;
   box-shadow: 2px 5px #632626;
@@ -92,12 +128,12 @@ form input[type="submit"]:active {
   position: relative;
 }
 .task h3 {
-  font-size: 16px;
+  font-size: 0.8rem;
   padding-bottom: 10px;
   color: #fff;
 }
 .task h3 span {
-  font-size: 14px;
+  font-size: 0.8rem;
 }
 .taskDetails {
   margin-top: 8px;
@@ -133,7 +169,12 @@ form input[type="submit"]:active {
   top: 5px;
   right: 20px;
 }
-@media screen and (min-width: 500px) {
+@media screen and (min-width: 550px) {
+  #digiClock {
+    position: absolute;
+    top: 10vh;
+    right: 3vw;
+  }
   #pendingTasks {
     flex-direction: row;
   }
