@@ -109,6 +109,7 @@ form input[type="submit"]:active {
   background-color: #afbbb1c7;
   overflow-wrap: break-word;
   word-wrap: break-word;
+  white-space: pre-wrap;
   overflow-y: scroll;
 }
 .taskDetails::-webkit-scrollbar {

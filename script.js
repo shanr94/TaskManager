@@ -1,60 +1,84 @@
 let form = document.querySelector("form");
+let isDueDateValid = false;
+
 //adding event listner on form submit
 form.addEventListener("submit", (e) => {
-  let duplicateTask = false;
   //prevent default behaviour of reloading after submission of form
   e.preventDefault();
+  let duplicateTask = false;
   let subject = e.target.subject.value;
   let priority = e.target.priority.value;
-  let dueDate = e.target.dueDate.value.replace("T", " ");
+  let dueDate = e.target.dueDate.value;
   let details = e.target.details.value;
   let txtColor = "";
+  let finalDueDate = "";
 
-  //setting text color based on priority
-  if (priority == "high") {
-    txtColor = 'style="color: red"';
-  } else if (priority == "medium") {
-    txtColor = 'style="color: yellow"';
-  } else if (priority == "low") {
-    txtColor = `style="color: #b9ff14"`;
-  }
+  dueDateValidityHandler(dueDate);
 
-  //getting data from local storage as JSON and converting it in Array
-  let allTasks = JSON.parse(localStorage.getItem("taskList")) ?? [];
-
-  //checking for duplicate entery
-  for (let task of allTasks) {
-    if (task.subject == subject && task.dueDate == dueDate) {
-      duplicateTask = true;
-      break;
+  if (isDueDateValid) {
+    finalDueDate = dueDate.replace("T", " ");
+    //setting text color based on priority
+    if (priority == "high") {
+      txtColor = 'style="color: red"';
+    } else if (priority == "medium") {
+      txtColor = 'style="color: yellow"';
+    } else if (priority == "low") {
+      txtColor = `style="color: #b9ff14"`;
     }
-  }
-
-  //if duplicate found alert user else create task
-  if (duplicateTask) {
-    alert("Task alraedy exist!");
+    //getting data from local storage as JSON and converting it in Array
+    let allTasks = JSON.parse(localStorage.getItem("taskList")) ?? [];
+    //checking for duplicate entery
+    for (let task of allTasks) {
+      if (
+        task.subject == subject &&
+        task.dueDate == finalDueDate &&
+        task.priority == priority
+      ) {
+        duplicateTask = true;
+        break;
+      }
+    }
+    //if duplicate found alert user else create task
+    if (duplicateTask) {
+      alert("Task alraedy exist!");
+      document
+        .querySelectorAll("form input, form select, form textarea")
+        .forEach((elm) => {
+          elm.style.borderBottom = "2px solid red";
+        });
+    } else {
+      allTasks.push({
+        subject: subject,
+        priority: priority,
+        dueDate: finalDueDate,
+        details: details,
+        txtColor: txtColor,
+      });
+      //pushing data in Local Storage
+      localStorage.setItem("taskList", JSON.stringify(allTasks));
+      //caling displayHandler function to show all tasks to user on browser screen
+      displayHandler();
+    }
   } else {
-    allTasks.push({
-      subject: subject,
-      priority: priority,
-      dueDate: dueDate,
-      details: details,
-      txtColor: txtColor,
-    });
-
-    //pushing data in Local Storage
-    localStorage.setItem("taskList", JSON.stringify(allTasks));
-    //caling displayHandler function to show all tasks to user on browser screen
-    displayHandler();
+    alert(`Due Date and Time can't be prior to current date & time!`);
   }
 });
+
+//checking if due date is not prior to current date
+function dueDateValidityHandler(dueDate) {
+  let dt1 = new Date(dueDate);
+  let currentDate = new Date();
+  if (dt1.getTime() < currentDate.getTime()) {
+    isDueDateValid = false;
+  } else {
+    isDueDateValid = true;
+  }
+}
 
 function displayHandler() {
   //getting data from local storage as JSON and converting it in Array
   let allTasks = JSON.parse(localStorage.getItem("taskList")) ?? [];
-
   let finalList = [];
-
   //dynamically adding new task to existing taskList and storing in new array
   allTasks.forEach((elm, i) => {
     finalList.push(
@@ -75,7 +99,6 @@ function displayHandler() {
 
   //updating DOM to show all tasks to user
   document.getElementById("pendingTasks").innerHTML = finalList;
-
   //form reset
   form.reset();
 }
