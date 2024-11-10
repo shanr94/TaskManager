@@ -127,6 +127,11 @@ function displayHandler() {
   //updating DOM to show all tasks to user
   document.getElementById("pendingTasks").innerHTML = finalList;
   //form reset
+  document
+    .querySelectorAll("form input, form select, form textarea")
+    .forEach((elm) => {
+      elm.style.borderBottom = "none";
+    });
   form.reset();
 }
 
